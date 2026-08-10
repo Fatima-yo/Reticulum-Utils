@@ -13,6 +13,10 @@ set -euo pipefail
 #   - Nomad Network
 #
 # Designed for Debian/Ubuntu VPS systems.
+#
+# to use this script, in a bash terminal run:
+# curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash
+# 
 # ============================================================
 
 RETICULUM_USER="reticulum"
