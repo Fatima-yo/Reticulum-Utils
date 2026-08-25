@@ -21,6 +21,40 @@ set -euo pipefail
 # 
 # ============================================================
 
+echo
+echo "=== Reticulum stack installer ==="
+
+# ------------------------------------------------------------
+# Parse command-line arguments
+# ------------------------------------------------------------
+
+echo
+echo "=== Parse command line parameters ==="
+
+NOMAD_SERVER=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --server)
+            NOMAD_SERVER=true
+            shift
+            ;;
+        *)
+            echo "ERROR: Unknown argument: $1"
+            echo
+            echo "Usage:"
+            echo "  $0 [--server]"
+            exit 1
+            ;;
+    esac
+done
+
+# ------------------------------------------------------------
+# Check root
+# ------------------------------------------------------------
+
+echo "=== Setting environment variables ==="
+
 RETICULUM_USER="reticulum"
 RETICULUM_HOME="/opt/reticulum"
 VENV="${RETICULUM_HOME}/reticulum_env"
@@ -28,8 +62,6 @@ VENV="${RETICULUM_HOME}/reticulum_env"
 RNS_CONFIG="/etc/reticulum"
 LXMF_CONFIG="/etc/lxmd"
 NOMAD_CONFIG="/etc/nomadnetwork"
-
-echo "=== Reticulum stack installer ==="
 
 # ------------------------------------------------------------
 # Check root
@@ -491,7 +523,17 @@ EOF
 echo
 echo "=== Creating Nomad Network systemd service ==="
 
-cat > /etc/systemd/system/nomadnet.service <<EOF
+# ------------------------------------------------------------
+# systemd: Nomad Network
+# ------------------------------------------------------------
+
+# nomadnet service is conditional, only for server installations
+if [[ "${NOMAD_SERVER}" == true ]]; then
+
+    echo
+    echo "=== Creating Nomad Network systemd service ==="
+
+    cat > /etc/systemd/system/nomadnet.service <<EOF
 [Unit]
 Description=Nomad Network
 After=rnsd.service lxmd.service
@@ -510,6 +552,19 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
+else
+
+    echo
+    echo "=== Nomad Network server mode disabled ==="
+
+    # If a previous installation created the service,
+    # disable and stop it when --server is not requested.
+    if systemctl list-unit-files nomadnet.service >/dev/null 2>&1; then
+        systemctl disable --now nomadnet.service 2>/dev/null || true
+    fi
+
+fi
+
 # ------------------------------------------------------------
 # Enable and start services
 # ------------------------------------------------------------
@@ -521,11 +576,17 @@ systemctl daemon-reload
 
 systemctl enable rnsd.service
 systemctl enable lxmd.service
-systemctl enable nomadnet.service
+# nomadnet service is conditional, only for server installations
+if [[ "${NOMAD_SERVER}" == true ]]; then
+    systemctl enable nomadnet.service
+fi
 
 systemctl restart rnsd.service
 systemctl restart lxmd.service
-systemctl restart nomadnet.service
+# nomadnet service is conditional, only for server installations
+if [[ "${NOMAD_SERVER}" == true ]]; then
+    systemctl restart nomadnet.service
+fi
 
 # ------------------------------------------------------------
 # Verify
@@ -539,8 +600,15 @@ systemctl --no-pager --full status rnsd.service || true
 echo
 systemctl --no-pager --full status lxmd.service || true
 
-echo
-systemctl --no-pager --full status nomadnet.service || true
+# nomadnet service is conditional, only for server installations
+if [[ "${NOMAD_SERVER}" == true ]]; then
+    echo
+    systemctl --no-pager --full status nomadnet.service || true
+fi
+
+# ------------------------------------------------------------
+# Final user report
+# ------------------------------------------------------------
 
 echo
 echo "============================================================"
@@ -568,4 +636,14 @@ echo "  ${VENV}/bin/rnstatus"
 echo
 echo "Reticulum port:"
 echo "  TCP 4242"
+echo 
+if [[ "${NOMAD_SERVER}" == true ]]; then
+    echo "Nomad Network mode: SERVER"
+    echo "  NomadNet daemon: enabled"
+else
+    echo "Nomad Network mode: CLIENT"
+    echo "  NomadNet daemon: disabled"
+    echo "  Run 'nomadnet' to start the interactive client."
+fi
+echo
 echo "============================================================"
