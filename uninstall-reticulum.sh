@@ -132,16 +132,32 @@ echo "  CLI symlinks from /usr/local/bin"
 echo "  System user:            ${RETICULUM_USER}"
 echo
 echo "System Python packages will NOT be removed."
-
 echo
+
 if [[ "${PURGE}" == true ]]; then
-    echo "WARNING: --purge was specified."
+    echo "============================================================"
+    echo "WARNING: PURGE MODE"
+    echo "============================================================"
     echo
-    echo "User Reticulum/NomadNet data will ALSO be removed."
+    echo "The following user data will ALSO be permanently removed:"
     echo
-    echo "This includes:"
-    echo "  ~/.reticulum"
-    echo "  ~/.nomadnetwork"
+    echo "  /home/*/.reticulum"
+    echo "  /home/*/.nomadnetwork"
+    echo "  /root/.reticulum"
+    echo "  /root/.nomadnetwork"
+    echo
+    echo "This may include Reticulum identities, keys, and"
+    echo "NomadNet user data."
+    echo
+else
+    echo "User-specific Reticulum and NomadNet data will be preserved:"
+    echo
+    echo "  /home/*/.reticulum"
+    echo "  /home/*/.nomadnetwork"
+    echo "  /root/.reticulum"
+    echo "  /root/.nomadnetwork"
+    echo
+    echo "Use --purge if you also want to remove this data."
     echo
 fi
 
@@ -291,13 +307,41 @@ else
     echo "Installation directory: removed"
 fi
 
-if systemctl list-unit-files nomadnet.service >/dev/null 2>&1; then
-    :
+echo
+
+if [[ "${PURGE}" == true ]]; then
+
+    echo "============================================================"
+    echo "Reticulum stack completely uninstalled."
+    echo "============================================================"
+    echo
+    echo "The following user data was also removed:"
+    echo
+    echo "  /home/*/.reticulum"
+    echo "  /home/*/.nomadnetwork"
+    echo "  /root/.reticulum"
+    echo "  /root/.nomadnetwork"
+    echo
+    echo "System Python packages were intentionally left installed."
+
+else
+
+    echo "============================================================"
+    echo "Reticulum stack uninstalled."
+    echo "============================================================"
+    echo
+    echo "User-specific Reticulum and NomadNet data was preserved."
+    echo
+    echo "Preserved locations:"
+    echo "  /home/*/.reticulum"
+    echo "  /home/*/.nomadnetwork"
+    echo "  /root/.reticulum"
+    echo "  /root/.nomadnetwork"
+    echo
+    echo "Use --purge if you want to remove this data as well."
+    echo
+    echo "System Python packages were intentionally left installed."
+
 fi
 
-echo
-echo "============================================================"
-echo "Reticulum stack uninstallation complete."
-echo
-echo "System Python packages were intentionally left installed."
-echo "============================================================"
+# end of script
