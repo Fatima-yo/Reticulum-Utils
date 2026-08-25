@@ -70,17 +70,17 @@ echo "=== Installing system packages ==="
 
 export DEBIAN_FRONTEND=noninteractive
 
-apt-get update
+apt update
 
-apt-get install -y \
+apt install -y \
+    curl \
     python3 \
     python3-full \
     python3-pip \
     python3-venv \
     python3-virtualenv \
     build-essential \
-    ca-certificates \
-    curl
+    ca-certificates
 
 # ------------------------------------------------------------
 # Create dedicated user
