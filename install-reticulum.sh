@@ -79,7 +79,8 @@ apt-get install -y \
     python3-venv \
     python3-virtualenv \
     build-essential \
-    ca-certificates
+    ca-certificates \
+    curl
 
 # ------------------------------------------------------------
 # Create dedicated user
