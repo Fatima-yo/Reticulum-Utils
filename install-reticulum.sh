@@ -12,7 +12,7 @@ set -euo pipefail
 #   - LXMF (lxmd)
 #   - Nomad Network
 #
-# Designed for Debian/Ubuntu VPS systems.
+# Designed for Debian/Ubuntu systems.
 # To use this script, in a bash terminal you can run one of the following.
 #
 # for a normal PC/client installation, run:
