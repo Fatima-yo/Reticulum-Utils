@@ -56,7 +56,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # ------------------------------------------------------------
-# Check root
+# Set environment variables
 # ------------------------------------------------------------
 
 echo "=== Setting environment variables ==="
