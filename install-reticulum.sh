@@ -35,6 +35,9 @@ echo "=== Reticulum stack installer ==="
 # Check root
 # ------------------------------------------------------------
 
+echo
+echo "=== Checking if you are root ==="
+
 if [[ "${EUID}" -ne 0 ]]; then
     echo "ERROR: This installer must be run as root."
     echo "Use:"
@@ -45,6 +48,9 @@ fi
 # ------------------------------------------------------------
 # Check OS
 # ------------------------------------------------------------
+
+echo
+echo "=== Checking if your system is Debian or Ubuntu ==="
 
 if [[ ! -f /etc/os-release ]]; then
     echo "ERROR: Cannot determine operating system."
@@ -68,11 +74,14 @@ esac
 # ------------------------------------------------------------
 
 echo
-echo "=== Installing system packages ==="
+echo "=== Updating Repos ==="
 
 export DEBIAN_FRONTEND=noninteractive
 
 apt update
+
+echo
+echo "=== Installing system packages ==="
 
 apt install -y \
     python3 \
