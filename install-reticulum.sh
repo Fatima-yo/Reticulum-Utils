@@ -129,6 +129,32 @@ echo "=== Installing Reticulum, LXMF and Nomad Network ==="
     nomadnet
 
 # ------------------------------------------------------------
+# Make the virtual environment usable by normal users
+# ------------------------------------------------------------
+
+chmod -R a+rX "${VENV}"
+
+# ------------------------------------------------------------
+# Make Reticulum/LXMF/NomadNet commands available system-wide
+# ------------------------------------------------------------
+
+for binary in \
+    rns \
+    rnsd \
+    rnstatus \
+    rnpath \
+    rncp \
+    rnprobe \
+    rnsh \
+    lxmd \
+    nomadnet
+do
+    if [[ -x "${VENV}/bin/${binary}" ]]; then
+        ln -sf "${VENV}/bin/${binary}" "/usr/local/bin/${binary}"
+    fi
+done
+
+# ------------------------------------------------------------
 # Reticulum configuration
 # ------------------------------------------------------------
 
