@@ -132,11 +132,17 @@ echo "=== Installing Reticulum, LXMF and Nomad Network ==="
 # Make the virtual environment usable by normal users
 # ------------------------------------------------------------
 
+echo
+echo "=== Making Reticulum usable by any user ==="
+
 chmod -R a+rX "${VENV}"
 
 # ------------------------------------------------------------
 # Make Reticulum/LXMF/NomadNet commands available system-wide
 # ------------------------------------------------------------
+
+echo
+echo "=== Making Reticulum available system wide ==="
 
 for binary in \
     rns \
