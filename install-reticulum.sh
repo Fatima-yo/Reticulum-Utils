@@ -112,6 +112,8 @@ mkdir -p "${RETICULUM_HOME}"
 
 chown -R "${RETICULUM_USER}:${RETICULUM_USER}" "${RETICULUM_HOME}"
 
+chmod 755 "${RETICULUM_HOME}"
+
 # ------------------------------------------------------------
 # Create Python virtual environment
 # ------------------------------------------------------------
