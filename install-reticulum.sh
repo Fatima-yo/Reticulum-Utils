@@ -13,11 +13,17 @@ set -euo pipefail
 #   - Nomad Network
 #
 # Designed for Debian/Ubuntu VPS systems.
+# To use this script, in a bash terminal you can run one of the following.
 #
-# to use this script, in a bash terminal run:
+# for a normal PC/client installation, run:
 # sudo apt update
 # sudo apt install curl
 # curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash
+#
+# for a VPS/server installation, run:
+# sudo apt update
+# sudo apt install curl
+# curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash -s -- --server
 # 
 # ============================================================
 
