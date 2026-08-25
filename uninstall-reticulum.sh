@@ -328,6 +328,7 @@ if [[ "${PURGE}" == true ]]; then
     echo "  /root/.nomadnetwork"
     echo
     echo "System Python packages were intentionally left installed."
+    echo
 
 else
 
@@ -346,6 +347,7 @@ else
     echo "Use --purge if you want to remove this data as well."
     echo
     echo "System Python packages were intentionally left installed."
+    echo
 
 fi
 
