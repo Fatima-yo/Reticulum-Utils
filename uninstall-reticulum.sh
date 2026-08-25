@@ -161,7 +161,12 @@ else
     echo
 fi
 
-read -r -p "Continue? [y/N] " answer
+if [[ ! -t 0 ]] && [[ ! -e /dev/tty ]]; then
+    echo "ERROR: This uninstaller requires an interactive terminal."
+    exit 1
+fi
+
+read -r -p "Continue? [y/N] " answer </dev/tty
 
 if [[ ! "${answer}" =~ ^[Yy]$ ]]; then
     echo "Uninstallation cancelled."
