@@ -1,8 +1,15 @@
+#============================================================
+#
 # Reticulum-Utils
-Some utilities I wrote to make using Reticulum more practical
-
-# ============================================================
-# Reticulum / LXMF / Nomad Network installer
+#
+# Some utilities I wrote to make using Reticulum more practical
+# Designed for Debian/Ubuntu systems.
+#
+# Instructions for running the script are included in the initial comments for each script.
+#
+#============================================================
+#
+# 1. Reticulum / LXMF / Nomad Network installer
 #
 # Based on original instructions written by Gaba :-D at:
 # https://fab.uy/index.php/Redes_Aut%C3%B3nomas_por_fuera_de_Internet
@@ -12,9 +19,10 @@ Some utilities I wrote to make using Reticulum more practical
 #   - LXMF (lxmd)
 #   - Nomad Network
 #
-# Designed for Debian/Ubuntu VPS systems.
+#============================================================
 #
-# to use this script, in a bash terminal run:
-# curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash
+# 2. Reticulum / LXMF / Nomad Network uninstaller
+#
+# You have the option of keeping/removing user configuration data.
 # 
 # ============================================================
