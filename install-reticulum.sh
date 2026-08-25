@@ -15,6 +15,8 @@ set -euo pipefail
 # Designed for Debian/Ubuntu VPS systems.
 #
 # to use this script, in a bash terminal run:
+# sudo apt update
+# sudo apt install curl
 # curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash
 # 
 # ============================================================
@@ -73,7 +75,6 @@ export DEBIAN_FRONTEND=noninteractive
 apt update
 
 apt install -y \
-    curl \
     python3 \
     python3-full \
     python3-pip \
