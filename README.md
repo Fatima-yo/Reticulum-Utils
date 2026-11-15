@@ -19,10 +19,16 @@
 #   - LXMF (lxmd)
 #   - Nomad Network
 #
+# To install:
+# curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/install-reticulum.sh | sudo bash -s -- --server
+#
 #============================================================
 #
 # 2. Reticulum / LXMF / Nomad Network uninstaller
 #
 # You have the option of keeping/removing user configuration data.
+#
+# To uninstall:
+# curl -fsSL https://raw.githubusercontent.com/Fatima-yo/Reticulum-Utils/main/uninstall-reticulum.sh | sudo bash -s -- --purge
 # 
 # ============================================================
